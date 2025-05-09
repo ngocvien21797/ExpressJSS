@@ -10,6 +10,11 @@ class User {
         const [rows] = await pool.query('SELECT id, username, role, created_at, avatar_url FROM users WHERE id = ?', [id]);
         return rows[0];
     }
+
+    static async findByUsername(username) {
+        const [rows] = await pool.query('SELECT * FROM users WHERE username LIKE ?', [`%${username}%`]);
+        return rows;
+    }
 }
 
 module.exports = User;
